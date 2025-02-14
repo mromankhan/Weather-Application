@@ -1,6 +1,6 @@
 import { View, StyleSheet, ImageBackground, Dimensions, Text, ScrollView } from "react-native";
 import SearchBar from "./SearchBar";
-import { haze, rainy, snow, sunny } from "../assets/backgroundImages/images";
+import { haze, rainy, snow, sunny, cloudy } from "../assets/backgroundImages/images";
 import { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
@@ -34,11 +34,33 @@ const Weather = ({ weatherData, fetchWeatherData }: any) => {
     }, [weatherData])
 
     const getBackgroundImg = (weather: string) => {
-        if (weather === "Snow") return snow;
-        if (weather === "Clear") return sunny;
-        if (weather === "Rain") return rainy;
-        if (weather === "Haze") return haze;
-        return haze;
+        switch (weather) {
+            case "Partly cloudy":
+            case "Patchy rain nearby":
+            case "Cloudy":
+                return cloudy;
+
+            case "Snow":
+            case "Heavy snow":
+            case "Light snow":
+            case "Moderate snow":
+            case "Moderate or heavy snow showers":
+                return snow;
+
+            case "Clear":
+            case "Sunny":
+                return sunny;
+
+            case "Rain":
+            case "Light rain shower":
+            case "Light freezing rain":
+            case "Moderate or heavy rain shower":
+                return rainy;
+
+            case "Haze":
+            default:
+                return haze;
+        }
     }
 
 
